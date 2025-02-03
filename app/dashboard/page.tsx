@@ -19,7 +19,7 @@ const DashboardPage = () => {
           <h1 className="text-3xl font-bold text-green-500">FinTrack</h1>
           <nav className="space-x-4">
             <button
-              onClick={() => router.push('/')}
+              onClick={() => router.push('/')}  // Redirige a la página principal
               className="text-white hover:text-green-400"
             >
               Inicio
@@ -40,64 +40,48 @@ const DashboardPage = () => {
           Bienvenido 👋
         </h1>
 
-        {/* Resumen General */}
+        {/* Botón Resumen General */}
         <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">Resumen General</h2>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg flex justify-between">
-            <div>
-              <p className="text-gray-400">Saldo Actual</p>
-              <h3 className="text-3xl font-bold text-green-400">$12,450.00</h3>
-            </div>
-            <div>
-              <p className="text-gray-400">Gastos Mensuales</p>
-              <h3 className="text-3xl font-bold text-red-400">$3,200.00</h3>
-            </div>
-            <div>
-              <p className="text-gray-400">Ahorros</p>
-              <h3 className="text-3xl font-bold text-blue-400">$1,800.00</h3>
-            </div>
-          </div>
-        </section>
-
-        {/* Información del Mercado Financiero */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">Mercado Financiero</h2>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <p className="text-gray-300">
-              Últimas tendencias: las acciones tecnológicas subieron un 2.5% esta semana.
-            </p>
-          </div>
-        </section>
-
-        {/* Progreso de Objetivos */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">Progreso de Objetivos</h2>
-          <div className="flex space-x-4">
-            <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-1/3">
-              <h3 className="text-xl font-bold text-green-400">Viaje a Europa</h3>
-              <p className="text-gray-300">Ahorros: $4,000 / $5,000</p>
-              <div className="bg-gray-700 w-full h-3 rounded mt-2">
-                <div className="bg-green-500 h-3 rounded" style={{ width: '80%' }}></div>
+          <button
+            onClick={() => router.push('/dashboard/gastos')}  // Redirige a /dashboard/gastos
+            className="w-full bg-gray-800 p-6 rounded-lg shadow-lg text-white hover:bg-gray-700"
+          >
+            <h2 className="text-2xl font-bold mb-4">Gastos y Ingresos</h2>
+            <div className="flex justify-between">
+              <div>
+                <p className="text-gray-400">Saldo Actual</p>
+                <h3 className="text-3xl font-bold text-green-400">$5500.00</h3>
+              </div>
+              <div>
+                <p className="text-gray-400">Gastos Mensuales</p>
+                <h3 className="text-3xl font-bold text-red-400">$950.00</h3>
               </div>
             </div>
-            <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-1/3">
-              <h3 className="text-xl font-bold text-green-400">Comprar Laptop</h3>
-              <p className="text-gray-300">Ahorros: $1,200 / $2,000</p>
-              <div className="bg-gray-700 w-full h-3 rounded mt-2">
-                <div className="bg-green-500 h-3 rounded" style={{ width: '60%' }}></div>
-              </div>
-            </div>
-          </div>
+          </button>
         </section>
 
-        {/* Control de Gastos */}
-        <section>
-          <h2 className="text-2xl font-bold mb-4">Control de Gastos</h2>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+        {/* Botón Mercado Financiero */}
+        <section className="mb-8">
+          <button
+            onClick={() => router.push('/dashboard/mercado-financiero')}  // Redirige a Mercado Financiero
+            className="w-full bg-gray-800 p-6 rounded-lg shadow-lg text-white hover:bg-gray-700"
+          >
+            <h2 className="text-2xl font-bold mb-4">Mercado Financiero</h2>
             <p className="text-gray-300">
-              Próximamente: Gráfica de gastos detallada.
+              Enterate de las ultimas tendencias del mercado financiero gracias a nuestra gran comunidad!
             </p>
-          </div>
+          </button>
+        </section>
+
+        {/* Botón Progreso de Objetivos */}
+        <section className="mb-8">
+          <button
+            onClick={() => router.push('/dashboard/objetivos')}  // Redirige a Progreso de Objetivos
+            className="w-full bg-gray-800 p-6 rounded-lg shadow-lg text-white hover:bg-gray-700"
+          >
+            <h2 className="text-2xl font-bold mb-4">Progreso de Objetivos</h2>
+            
+          </button>
         </section>
       </main>
 

@@ -1,4 +1,4 @@
-import { AuthOptions, User } from "next-auth";
+import { AuthOptions, User as NextAuthUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import db from "@/libs/db";
 import bcrypt from "bcrypt";
@@ -7,6 +7,17 @@ import bcrypt from "bcrypt";
 interface Credentials {
   email: string;
   password: string;
+}
+
+// Extender el tipo User para incluir la propiedad 'id'
+declare module "next-auth" {
+  interface User {
+    id: string;
+  }
+
+  interface Session {
+    user: User;
+  }
 }
 
 // Definir la configuración de autenticación con NextAuth
@@ -18,9 +29,7 @@ export const authOptions: AuthOptions = {
         email: { label: "Email", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password", placeholder: "*****" },
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       async authorize(credentials: any) {
-        
         // Verificamos si 'credentials' está definido antes de acceder a sus propiedades
         if (!credentials) {
           throw new Error("No credentials provided");
@@ -49,7 +58,7 @@ export const authOptions: AuthOptions = {
         }
 
         // Aseguramos que el retorno cumpla con el tipo esperado por NextAuth (User)
-        const user: User = {
+        const user: NextAuthUser = {
           id: String(userFound.id),  // Convertimos 'id' a string si NextAuth espera un string
           name: userFound.username,
           email: userFound.email,
@@ -62,6 +71,26 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/auth/login", // Ruta personalizada para la página de inicio de sesión
   },
+
+  callbacks: {
+    // Agregar el id a la sesión
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.sub as string; // Asignamos el id del token a la sesión
+      }
+      return session;
+    },
+
+    // Guardar el id del usuario en el JWT
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id; // Guardamos el id del usuario en el JWT
+      }
+      return token;
+    }
+  },
+
+  session: {
+    strategy: "jwt",  // Usamos JWT como estrategia de sesión
+  },
 };
-
-
